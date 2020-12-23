@@ -1,0 +1,32 @@
+{
+  "name": "fastify-objection-example",
+  "version": "1.0.0",
+  "description": "Simple web application using fastify and objection on top of postgres",
+  "main": "src/app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tap test/**/*.test.js",
+    "start": "fastify start -l info src/app.js",
+    "docker-compose": "docker-compose --project-directory . --project-name gibush",
+    "dev": "fastify start -w -l info -P src/app.js",
+    "knex:migrate": "knex migrate:latest"
+  },
+  "keywords": ["pg", "fastify", "objection"],
+  "author": "Idan Dagan",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^3.0.0",
+    "fastify-autoload": "^3.0.2",
+    "fastify-cli": "^2.5.1",
+    "fastify-objectionjs": "^0.3.0",
+    "fastify-plugin": "^3.0.0",
+    "knex": "^0.21.14",
+    "objection": "^2.2.3",
+    "pg": "^8.5.1"
+  },
+  "devDependencies": {
+    "tap": "^14.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+version: '2'
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-gibush
+    environment:
+      POSTGRES_DB: gibush
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5434:5432
