@@ -11,7 +11,7 @@
     "start": "fastify start -l info src/app.js",
     "docker-compose": "docker-compose --project-directory . --project-name gibush",
     "dev": "fastify start -w -l info -P src/app.js",
-    "knex:migrate": "knex migrate:latest"
+    "migrate": "knex migrate:latest"
   },
   "keywords": ["pg", "fastify", "objection"],
   "author": "Idan Dagan",

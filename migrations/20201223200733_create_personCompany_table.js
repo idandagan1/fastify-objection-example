@@ -1,6 +1,6 @@
 exports.up = function(knex) {
     return knex.schema
-        .createTable('personCompany', table => {
+        .createTable('person_company', table => {
             table.integer('person_id');
             table.integer('company_id');
             table.string('date', 80).notNullable();
@@ -9,5 +9,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists('personCompany')
+    return knex.schema.dropTableIfExists('person_company')
 };

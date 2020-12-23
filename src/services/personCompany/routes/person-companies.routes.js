@@ -1,4 +1,4 @@
-const PersonCompany = require('../../models/person-company.model');
+const PersonCompany = require('../../../models/person-company.model');
 
 const RouteOptions = {
   get: {

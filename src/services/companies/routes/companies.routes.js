@@ -1,17 +1,21 @@
-const Company = require('../../models/companies.model');
+const Company = require('../../../models/companies.model');
 
 const RouteOptions = {
   get: {
     handler: async (req, reply, next) => {
-      const res = await Company.query();
-      return reply.send(res);
+      const query = Company.query();
+
+      if (req.params.id)
+        query.findById(req.params.id);
+
+      const company = await query;
+      return reply.send(company);
     }
   },
   create: {
     handler: async (req, reply, next) => {
       const company = await Company.query().insert({
-        id: 1,
-        domain: 'some domain'
+        ...req.body,
       });
 
       reply.send(company);
