@@ -1,25 +1,14 @@
-const { Model } = require('objection');
+import { Model } from 'objection';
 
-class Person extends Model {
+export default class Company extends Model {
     // Table name is the only required property.
-    static get tableName() {
-        return 'person';
-    }
+    static tableName = 'company';
 
     // Each model must have a column (or a set of columns) that uniquely
     // identifies the rows. The column(s) can be specified using the `idColumn`
     // property. `idColumn` returns `id` by default and doesn't need to be
     // specified unless the model's primary key is something else.
-    static get idColumn() {
-        return 'id';
-    }
-
-    // Methods can be defined for model classes just as you would for
-    // any JavaScript class. If you want to include the result of these
-    // method in the output json, see `virtualAttributes`.
-    fullName() {
-        return this.firstName + ' ' + this.lastName;
-    }
+    static idColumn = 'id';
 
     // Optional JSON schema. This is not the database schema!
     // No tables or columns are generated based on this. This is only
@@ -29,13 +18,11 @@ class Person extends Model {
     static get jsonSchema() {
         return {
             type: 'object',
-            required: ['firstName', 'lastName'],
+            required: ['domain'],
 
             properties: {
                 id: { type: 'integer' },
-                firstName: { type: 'string', minLength: 1, maxLength: 255 },
-                lastName: { type: 'string', minLength: 1, maxLength: 255 },
-                companyId: { type: ['integer', 'null'] },
+                domain: { type: 'string', minLength: 1, maxLength: 255 },
             }
         };
     }
@@ -43,24 +30,22 @@ class Person extends Model {
     // This object defines the relations to other models.
     static get relationMappings() {
         return {
-            company: {
-                relation: Model.BelongsToOneRelation,
-                modelClass: require('./companies.model'),
+            person: {
+                relation: this.HasManyRelation,
+                modelClass: require('./persons.model'),
                 join: {
-                    from: 'person.company_id',
-                    to: 'company.id'
+                    from: 'company.id',
+                    to: 'person.company_id'
                 }
             },
             personCompany: {
-                relation: Model.BelongsToOneRelation,
+                relation: this.HasManyRelation,
                 modelClass: require('./person-company.model'),
                 join: {
-                    from: 'person.id',
-                    to: 'personCompany.person_id'
+                    from: 'company.id',
+                    to: 'personCompany.company_id'
                 }
             },
         };
     }
 }
-
-module.exports = Person;
