@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyServerOptions } from "fastify";
+import { FastifyInstance, FastifyServerOptions } from 'fastify';
 import fp from 'fastify-plugin';
 
 module.exports = fp((fastify: FastifyInstance, opts: FastifyServerOptions, done: any) => {

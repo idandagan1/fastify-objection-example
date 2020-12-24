@@ -1,8 +1,10 @@
-const PersonCompany = require('../../../models/person-company.model');
+import { FastifyInstance, FastifyServerOptions } from 'fastify';
+
+const { PersonCompany } = require('../../../models');
 
 const RouteOptions = {
   get: {
-    handler: async (req, reply, next) => {
+    handler: async (req:any, reply:any) => {
       const { person_id, company_id } = req.query;
       const res = await PersonCompany
           .query()
@@ -12,7 +14,7 @@ const RouteOptions = {
     }
   },
   create: {
-    handler: async (req, reply, next) => {
+    handler: async (req:any, reply:any) => {
       const personCompany = await PersonCompany
           .query()
           .insert({
@@ -27,7 +29,7 @@ const RouteOptions = {
 
 const fp = require('fastify-plugin')
 
-module.exports = fp((fastify, opts, done) => {
+module.exports = fp((fastify: FastifyInstance, opts: FastifyServerOptions, done: any) => {
   fastify.get('/person-company', RouteOptions.get);
   fastify.post('/person-company', RouteOptions.create);
   done();

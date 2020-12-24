@@ -1,4 +1,6 @@
 import { Model, JSONSchema } from 'objection';
+import CompanyModel from './companies.model';
+import PersonCompanyModel from './person-company.model';
 
 export default class PersonModel extends Model {
     // Table name is the only required property.
@@ -33,16 +35,16 @@ export default class PersonModel extends Model {
     static get relationMappings() {
         return {
             company: {
-                relation: this.BelongsToOneRelation,
-                modelClass: require('./companies.model'),
+                relation: Model.BelongsToOneRelation,
+                modelClass: CompanyModel,
                 join: {
                     from: 'person.company_id',
                     to: 'company.id'
                 }
             },
             personCompany: {
-                relation: this.BelongsToOneRelation,
-                modelClass: require('./person-company.model'),
+                relation: Model.BelongsToOneRelation,
+                modelClass: PersonCompanyModel,
                 join: {
                     from: 'person.id',
                     to: 'personCompany.person_id'

@@ -1,6 +1,6 @@
 import { Person } from '../../../models';
-import {FastifyInstance, FastifyReply, FastifyRequest, FastifyServerOptions} from 'fastify';
-import fp from "fastify-plugin";
+import { FastifyInstance, FastifyReply, FastifyRequest, FastifyServerOptions } from 'fastify';
+import fp from 'fastify-plugin';
 
 const RouteOptions = {
     get: {

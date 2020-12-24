@@ -1,6 +1,8 @@
 import { Model } from 'objection';
+import PersonModel from './persons.model';
+import CompanyModel from './companies.model';
 
-export default class PersonCompany extends Model {
+export default class PersonCompanyModel extends Model {
     // Table name is the only required property.
     static tableName = 'personCompany';
 
@@ -32,16 +34,16 @@ export default class PersonCompany extends Model {
     static get relationMappings() {
         return {
             person: {
-                relation: this.BelongsToOneRelation,
-                modelClass: require('./persons.model'),
+                relation: Model.BelongsToOneRelation,
+                modelClass: PersonModel,
                 join: {
                     from: 'personCompany.person_id',
                     to: 'person.id',
                 },
             },
             company: {
-                relation: this.BelongsToOneRelation,
-                modelClass: require('./companies.model'),
+                relation: Model.BelongsToOneRelation,
+                modelClass: CompanyModel,
                 join: {
                     from: 'personCompany.company_id',
                     to: 'company.id'

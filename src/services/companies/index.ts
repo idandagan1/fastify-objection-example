@@ -1,5 +1,5 @@
-import AutoLoad from "fastify-autoload";
-import { FastifyInstance, FastifyServerOptions } from "fastify";
+import AutoLoad from 'fastify-autoload';
+import { FastifyInstance, FastifyServerOptions } from 'fastify';
 import { dirname, join } from 'path'
 
 const dir = dirname(__filename);
