@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyServerOptions } from 'fastify';
 import fp from 'fastify-plugin';
-import { Company } from '../../models';
+import CompanyModel from './companies.model';
 import routes from './company.routes';
 import createController from 'feathers-objection';
 
@@ -13,7 +13,7 @@ export const controller = fp(async fastify => {
      */
     fastify.decorateRequest('Company', null);
     fastify.addHook('onRequest', async (req, reply) => {
-        req.Company = createController({ model: Company });
+        req.Company = createController({ model: CompanyModel });
     })
 })
 

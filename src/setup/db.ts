@@ -7,9 +7,9 @@ const initDb = (fastify:FastifyInstance) => {
             connection: {
                 database: 'gibush',
                 host: 'localhost',
-                user: 'postgres',
-            },
-        },
+                user: 'postgres'
+            }
+        }
     })
 }
 

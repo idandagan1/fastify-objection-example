@@ -1,55 +1,54 @@
-import { Model, JSONSchema } from 'objection';
-import CompanyModel from './companies.model';
-import PersonCompanyModel from './person-company.model';
+import { Model } from 'objection';
+import PersonModel from '../person/persons.model';
+import CompanyModel from '../company/companies.model';
 
-export default class PersonModel extends Model {
+export default class PersonCompanyModel extends Model {
     // Table name is the only required property.
-    static tableName = 'person';
+    static tableName = 'personCompany';
 
     // Each model must have a column (or a set of columns) that uniquely
     // identifies the rows. The column(s) can be specified using the `idColumn`
     // property. `idColumn` returns `id` by default and doesn't need to be
     // specified unless the model's primary key is something else.
-    static idColumn = 'id';
+    static idColumn = ['person_id', 'company_id'];
 
     // Optional JSON schema. This is not the database schema!
     // No tables or columns are generated based on this. This is only
     // used for input validation. Whenever a model instance is created
     // either explicitly or implicitly it is checked against this schema.
     // See http://json-schema.org/ for more info.
-    static get jsonSchema(): JSONSchema {
+    static get jsonSchema () {
         return {
             type: 'object',
-            required: ['firstName', 'lastName'],
+            required: ['personId', 'companyId'],
 
             properties: {
-                id: { type: 'integer' },
-                firstName: { type: 'string', minLength: 1, maxLength: 255 },
-                lastName: { type: 'string', minLength: 1, maxLength: 255 },
-                companyId: { type: ['integer', 'null'] },
+                personId: { type: 'integer' },
+                companyId: { type: 'integer' },
+                endDate: { type: 'string' }
             }
         };
     }
 
     // This object defines the relations to other models.
-    static get relationMappings() {
+    static get relationMappings () {
         return {
+            person: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: PersonModel,
+                join: {
+                    from: 'personCompany.person_id',
+                    to: 'person.id'
+                }
+            },
             company: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: CompanyModel,
                 join: {
-                    from: 'person.company_id',
+                    from: 'personCompany.company_id',
                     to: 'company.id'
                 }
-            },
-            personCompany: {
-                relation: Model.BelongsToOneRelation,
-                modelClass: PersonCompanyModel,
-                join: {
-                    from: 'person.id',
-                    to: 'personCompany.person_id'
-                }
-            },
+            }
         };
     }
 }

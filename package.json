@@ -12,6 +12,7 @@
     "dev": "npm run build && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\"  \"tsc -w\" \"fastify start -w -l info -P dist/app.js\"",
     "docker-compose": "docker-compose --project-directory . --project-name gibush",
     "lint": "tslint -p tsconfig.json",
+    "lint:fix": "tslint -p tsconfig.json --fix",
     "migrate": "knex migrate:latest",
     "test": "tap test/**/*.test.js",
     "start": "npm run build && fastify start -l info dist/app.js"

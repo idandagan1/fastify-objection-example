@@ -1,7 +1,7 @@
 import AutoLoad, { AutoloadPluginOptions } from 'fastify-autoload';
 import { FastifyPluginAsync } from 'fastify';
 import initDb from './setup/db';
-import initControllers from './setup/controllers';
+import { registerServices } from './setup/controllers';
 import { dirname, join} from 'path';
 
 export type AppOptions = {
@@ -15,7 +15,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
   initDb(fastify);
   const dir = dirname(__filename);
 
-  initControllers(fastify);
+  registerServices(fastify);
 
   fastify.register(AutoLoad, {
     dir: join(dir, 'services'),

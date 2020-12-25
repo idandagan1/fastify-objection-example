@@ -1,10 +1,10 @@
-import { Model } from 'objection';
-import Person from './persons.model';
-import PersonCompany from './person-company.model';
+import { Model, JSONSchema } from 'objection';
+import CompanyModel from '../company/companies.model';
+import PersonCompanyModel from '../personCompany/person-company.model';
 
-export default class CompanyModel extends Model {
+export default class PersonModel extends Model {
     // Table name is the only required property.
-    static tableName = 'company';
+    static tableName = 'person';
 
     // Each model must have a column (or a set of columns) that uniquely
     // identifies the rows. The column(s) can be specified using the `idColumn`
@@ -17,37 +17,39 @@ export default class CompanyModel extends Model {
     // used for input validation. Whenever a model instance is created
     // either explicitly or implicitly it is checked against this schema.
     // See http://json-schema.org/ for more info.
-    static get jsonSchema() {
+    static get jsonSchema (): JSONSchema {
         return {
             type: 'object',
-            required: ['domain'],
+            required: ['firstName', 'lastName'],
 
             properties: {
                 id: { type: 'integer' },
-                domain: { type: 'string', minLength: 1, maxLength: 255 },
+                firstName: { type: 'string', minLength: 1, maxLength: 255 },
+                lastName: { type: 'string', minLength: 1, maxLength: 255 },
+                companyId: { type: ['integer', 'null'] }
             }
         };
     }
 
     // This object defines the relations to other models.
-    static get relationMappings() {
+    static get relationMappings () {
         return {
-            person: {
-                relation: Model.HasManyRelation,
-                modelClass: Person,
+            company: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: CompanyModel,
                 join: {
-                    from: 'company.id',
-                    to: 'person.company_id'
+                    from: 'person.company_id',
+                    to: 'company.id'
                 }
             },
             personCompany: {
-                relation: Model.HasManyRelation,
-                modelClass: PersonCompany,
+                relation: Model.BelongsToOneRelation,
+                modelClass: PersonCompanyModel,
                 join: {
-                    from: 'company.id',
-                    to: 'personCompany.company_id'
+                    from: 'person.id',
+                    to: 'personCompany.person_id'
                 }
-            },
+            }
         };
     }
 }

@@ -1,35 +1,45 @@
 import { FastifyInstance } from 'fastify';
 import { controller as PersonController } from '../services/person';
 import { controller as CompanyController } from '../services/company';
+import { controller as PersonCompanyController } from '../services/personCompany';
 import { Service } from 'feathers-objection';
 import { Id, NullableId, Params } from '@feathersjs/feathers';
 
+export const registerServices = (fastify:FastifyInstance) => {
+    fastify.register(PersonController);
+    fastify.register(CompanyController);
+    fastify.register(PersonCompanyController);
+}
+
+/**
+ * The AppController is for adding global logic before/after the DB layer (auth, logs, errors, etc...)
+ */
 class AppController extends Service {
-    constructor(options: object) {
+    constructor (options: object) {
         super(options);
     }
 
-    get(id: Id) {
-        return super.get(id, {});
+    get (id: Id, params = {}) {
+        return super.get(id, params);
     }
 
-    find(params?: Params) {
+    find (params?: Params) {
         return super.find(params);
     }
 
-    create(data: object, params?: Params) {
+    create (data: object, params?: Params) {
         return super.create(data);
     }
 
-    update(id: Id, data: object, params?: Params) {
+    update (id: Id, data: object, params?: Params) {
         return super.update(id, data, params);
     }
 
-    patch(id: NullableId, data: object, params?: Params) {
+    patch (id: NullableId, data: object, params?: Params) {
         return super.patch(id, data, params);
     }
 
-    remove(id: NullableId, params?: Params) {
+    remove (id: NullableId, params?: Params) {
         return super.remove(id, params);
     }
 }
@@ -37,10 +47,3 @@ class AppController extends Service {
 export const createController = (options: object) => {
     return new AppController(options);
 }
-
-const initServices = (fastify:FastifyInstance) => {
-    fastify.register(PersonController);
-    fastify.register(CompanyController);
-}
-
-export default initServices;

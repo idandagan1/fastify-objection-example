@@ -1,3 +1,3 @@
-export { default as Company } from './companies.model';
-export { default as Person } from './persons.model';
-export { default as PersonCompany } from './person-company.model';
+export { default as Company } from '../services/company/companies.model';
+export { default as Person } from '../services/person/persons.model';
+export { default as PersonCompany } from '../services/personCompany/person-company.model';

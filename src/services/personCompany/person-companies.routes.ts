@@ -1,11 +1,11 @@
-import { FastifyInstance, FastifyServerOptions } from 'fastify';
-import { PersonCompany } from '../../../models';
+import { FastifyInstance } from 'fastify';
+import PersonCompanyModel from './person-company.model';
 
 const RouteOptions = {
   get: {
     handler: async (req:any, reply:any) => {
       const { person_id, company_id } = req.query;
-      const res = await PersonCompany
+      const res = await req.PersonCompanyModel
           .query()
           .findById([person_id, company_id])
           .withGraphJoined('[person, company]');
@@ -14,11 +14,11 @@ const RouteOptions = {
   },
   create: {
     handler: async (req:any, reply:any) => {
-      const personCompany = await PersonCompany
+      const personCompany = await PersonCompanyModel
           .query()
           .insert({
             ...req.body,
-            date: new Date(),
+            date: new Date()
           });
 
       reply.send(personCompany);
@@ -26,10 +26,9 @@ const RouteOptions = {
   }
 };
 
-import fp from 'fastify-plugin';
-
-module.exports = fp((fastify: FastifyInstance, opts: FastifyServerOptions, done: any) => {
+const routes = async (fastify: FastifyInstance) => {
   fastify.get('/person-company', RouteOptions.get);
   fastify.post('/person-company', RouteOptions.create);
-  done();
-});
+};
+
+export default routes;

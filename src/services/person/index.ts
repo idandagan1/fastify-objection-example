@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyServerOptions } from 'fastify';
 import fp from 'fastify-plugin';
-import { Person } from '../../models';
+import PersonModel from './persons.model';
 import routes from './persons.routes';
 import { createController } from '../../setup/controllers';
 
@@ -13,7 +13,7 @@ export const controller = fp(async fastify => {
      */
     fastify.decorateRequest('Person', null);
     fastify.addHook('onRequest', async (req, reply) => {
-        req.Person = createController({ model: Person });
+        req.Person = createController({ model: PersonModel });
     })
 })
 
