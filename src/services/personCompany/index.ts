@@ -4,7 +4,7 @@ import { dirname, join } from 'path'
 
 const dir = dirname(__filename);
 
-module.exports = async function (fastify: FastifyInstance, opts: FastifyServerOptions) {
+module.exports = async (fastify: FastifyInstance, opts: FastifyServerOptions) => {
   // Place here your custom code!
 
   // // This loads all plugins defined in routes

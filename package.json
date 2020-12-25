@@ -9,11 +9,12 @@
   "scripts": {
     "build": "npm run clean && tsc -p .",
     "clean": "rm -rf ./dist",
-    "test": "tap test/**/*.test.js",
-    "start": "npm run build && fastify start -l info dist/app.js",
-    "docker-compose": "docker-compose --project-directory . --project-name gibush",
     "dev": "npm run build && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\"  \"tsc -w\" \"fastify start -w -l info -P dist/app.js\"",
-    "migrate": "knex migrate:latest"
+    "docker-compose": "docker-compose --project-directory . --project-name gibush",
+    "lint": "tslint -p tsconfig.json",
+    "migrate": "knex migrate:latest",
+    "test": "tap test/**/*.test.js",
+    "start": "npm run build && fastify start -l info dist/app.js"
   },
   "keywords": [
     "pg",
@@ -28,6 +29,7 @@
     "fastify-cli": "^2.5.1",
     "fastify-objectionjs": "^0.3.0",
     "fastify-plugin": "^3.0.0",
+    "feathers-objection": "^7.1.0",
     "knex": "^0.21.14",
     "objection": "^2.2.3",
     "pg": "^8.5.1"

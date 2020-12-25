@@ -1,6 +1,5 @@
 import { FastifyInstance, FastifyServerOptions } from 'fastify';
-
-const { PersonCompany } = require('../../../models');
+import { PersonCompany } from '../../../models';
 
 const RouteOptions = {
   get: {
@@ -27,7 +26,7 @@ const RouteOptions = {
   }
 };
 
-const fp = require('fastify-plugin')
+import fp from 'fastify-plugin';
 
 module.exports = fp((fastify: FastifyInstance, opts: FastifyServerOptions, done: any) => {
   fastify.get('/person-company', RouteOptions.get);
