@@ -1,0 +1,15 @@
+{
+  "postgres": {
+    "client": "pg",
+    "connection": {
+      "database": "mydb",
+      "port": 5434,
+      "host": "localhost",
+      "user": "postgres"
+    }
+  },
+  "swagger": {
+    "schemes": ["http"],
+    "host": "localhost:3000"
+  }
+}

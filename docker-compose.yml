@@ -2,9 +2,33 @@ version: '2'
 services:
   postgres:
     image: postgres
-    container_name: postgres-gibush
+    container_name: postgres
     environment:
-      POSTGRES_DB: gibush
+      POSTGRES_DB: mydb
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - 5434:5432
+
+  server:
+    build: .
+    image: server
+    environment:
+      PG_HOST: postgres
+      PG_PORT: 5432
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    command: npm run start
+
+  server-test:
+    image: server
+    environment:
+      APP_URL: http://server:3000
+      PG_HOST: postgres
+      PG_PORT: 5432
+    depends_on:
+      - server
+      - postgres
+    command: dockerize -wait tcp://postgres:5432 -wait http://server:3000/healthcheck -timeout 10s bash -c "npm run migrate && npm run test:e2e"
+

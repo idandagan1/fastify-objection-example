@@ -1,12 +1,3 @@
-// Update with your config settings.
+const config = require('config');
 
-module.exports = {
-  development: {
-    client: 'postgresql',
-    connection: {
-      database: 'gibush',
-      host: 'localhost',
-      user:     'postgres',
-    }
-  },
-};
+module.exports = config.get('postgres');
