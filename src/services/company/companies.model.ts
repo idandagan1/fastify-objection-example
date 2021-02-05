@@ -1,6 +1,4 @@
 import { Model } from 'objection';
-import Person from '../person/persons.model';
-import PersonCompany from '../personCompany/person-company.model';
 
 export default class CompanyModel extends Model {
     // Table name is the only required property.
@@ -17,37 +15,40 @@ export default class CompanyModel extends Model {
     // used for input validation. Whenever a model instance is created
     // either explicitly or implicitly it is checked against this schema.
     // See http://json-schema.org/ for more info.
-    static get jsonSchema () {
+    static get jsonSchema() {
         return {
             type: 'object',
             required: ['domain'],
 
             properties: {
                 id: { type: 'integer' },
-                domain: { type: 'string', minLength: 1, maxLength: 255 }
-            }
+                domain: { type: 'string', minLength: 1, maxLength: 255 },
+            },
         };
     }
 
     // This object defines the relations to other models.
-    static get relationMappings () {
+    static get relationMappings() {
+        const Person = require('../person/persons.model');
+        const PersonCompany = require('../personCompany/person-company.model');
+
         return {
             person: {
                 relation: Model.HasManyRelation,
                 modelClass: Person,
                 join: {
                     from: 'company.id',
-                    to: 'person.company_id'
-                }
+                    to: 'person.company_id',
+                },
             },
             personCompany: {
                 relation: Model.HasManyRelation,
                 modelClass: PersonCompany,
                 join: {
                     from: 'company.id',
-                    to: 'personCompany.company_id'
-                }
-            }
+                    to: 'personCompany.company_id',
+                },
+            },
         };
     }
 }

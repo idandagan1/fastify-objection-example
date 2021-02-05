@@ -8,14 +8,12 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es6",
-    "lib": [
-      "esnext"
-    ],
+    "lib": [ "es2015" ],
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "allowJs": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "importHelpers": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -24,6 +22,9 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.js",
-    "./typings/*.ts"
+    "typings/**/*.ts"
+  ],
+  "exclude": [
+    ".eslintrc.js"
   ]
 }

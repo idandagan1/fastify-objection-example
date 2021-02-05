@@ -1,0 +1,11 @@
+{
+  "postgres": {
+    "connection": {
+      "port": "PG_PORT",
+      "host": "PG_HOST",
+      "user": "PG_USER",
+      "password": "PG_PASSWORD"
+    }
+  },
+  "baseUrl": "APP_URL"
+}

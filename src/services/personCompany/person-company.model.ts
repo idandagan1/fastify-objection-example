@@ -17,7 +17,7 @@ export default class PersonCompanyModel extends Model {
     // used for input validation. Whenever a model instance is created
     // either explicitly or implicitly it is checked against this schema.
     // See http://json-schema.org/ for more info.
-    static get jsonSchema () {
+    static get jsonSchema() {
         return {
             type: 'object',
             required: ['personId', 'companyId'],
@@ -25,30 +25,30 @@ export default class PersonCompanyModel extends Model {
             properties: {
                 personId: { type: 'integer' },
                 companyId: { type: 'integer' },
-                endDate: { type: 'string' }
-            }
+                endDate: { type: 'string' },
+            },
         };
     }
 
     // This object defines the relations to other models.
-    static get relationMappings () {
+    static get relationMappings() {
         return {
             person: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: PersonModel,
                 join: {
                     from: 'personCompany.person_id',
-                    to: 'person.id'
-                }
+                    to: 'person.id',
+                },
             },
             company: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: CompanyModel,
                 join: {
                     from: 'personCompany.company_id',
-                    to: 'company.id'
-                }
-            }
+                    to: 'company.id',
+                },
+            },
         };
     }
 }

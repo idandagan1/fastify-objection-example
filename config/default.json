@@ -8,6 +8,7 @@
       "user": "postgres"
     }
   },
+  "baseUrl": "http://localhost:3000",
   "swagger": {
     "schemes": ["http"],
     "host": "localhost:3000"
