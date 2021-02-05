@@ -24,4 +24,11 @@ export const RouteOptions = {
             return reply.send(person);
         },
     },
+    remove: {
+        handler: async (req: any, reply: FastifyReply) => {
+            const person = await req.Person.remove(req.params.id);
+
+            return reply.send(person);
+        },
+    },
 };

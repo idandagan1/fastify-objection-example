@@ -12,12 +12,12 @@ export const controller = fp(async (fastify) => {
      * in the 'onRequest' hook
      */
     fastify.decorateRequest('Person', null);
-    fastify.addHook('onRequest', async (req, reply) => {
+    fastify.addHook('onRequest', async (req, _reply) => {
         req.Person = createController({ model: PersonModel });
     });
 });
 
-const init = async (fastify: FastifyInstance, opts: FastifyServerOptions) => {
+const init = async (fastify: FastifyInstance, _opts: FastifyServerOptions) => {
     fastify.register(routes);
 };
 

@@ -39,25 +39,6 @@ describe('Person - End 2 End Tests', () => {
             ]);
         });
 
-        afterAll(async () => {
-            try {
-                await axios({
-                    method: 'delete',
-                    url: `${BASE_URL}/person/1`,
-                });
-            } catch (err) {
-                console.log(err);
-            }
-            try {
-                await axios({
-                    method: 'delete',
-                    url: `${BASE_URL}/company/1`,
-                });
-            } catch (err) {
-                console.log(err);
-            }
-        });
-
         it('should get one person by personId', async () => {
             const userId = 1;
             const { status, data } = await axios({

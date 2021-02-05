@@ -11,3 +11,6 @@
 ### Playground
 - Server will start on http://localhost:3000
 - You can use the postman collection
+
+### End 2 End Tests
+run ```npm run test:ci```
