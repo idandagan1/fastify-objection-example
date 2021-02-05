@@ -1,15 +1,18 @@
 import { FastifyInstance } from 'fastify';
+import fp from 'fastify-plugin';
 import { controller as PersonController } from '../services/person';
 import { controller as CompanyController } from '../services/company';
 import { controller as PersonCompanyController } from '../services/personCompany';
 import { Service } from 'feathers-objection';
 import { Id, NullableId, Params } from '@feathersjs/feathers';
 
-export const registerServices = (fastify:FastifyInstance) => {
+const registerServices = async (fastify:FastifyInstance) => {
     fastify.register(PersonController);
     fastify.register(CompanyController);
     fastify.register(PersonCompanyController);
 }
+
+export default fp(registerServices);
 
 /**
  * The AppController is for adding global logic before/after the DB layer (auth, logs, errors, etc...)

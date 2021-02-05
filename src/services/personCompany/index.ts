@@ -11,7 +11,7 @@ export const controller = fp(async fastify => {
    * To achieve proper encapsulation across requests, configure a new value for each incoming request
    * in the 'onRequest' hook
    */
-  fastify.decorateRequest('Person', null);
+  fastify.decorateRequest('PersonCompany', null);
   fastify.addHook('onRequest', async (req, reply) => {
     req.PersonCompany = createController({ model: PersonCompanyModel });
   })
